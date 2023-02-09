@@ -5,6 +5,7 @@ int IntArray::getLength(){
 }
 
 IntArray::IntArray(int length) : _length(length) {
+	if (length < 0) throw bad_length();
 	_data = new int[length];
 }
 IntArray::IntArray() : IntArray::IntArray(10) {};
@@ -26,7 +27,7 @@ int& IntArray::operator[](int index){
 }
 
 void IntArray::resize(int length){
-	//if (length < 0) throw bad_length();
+	if (length < 0) throw bad_length();
 	int* temp = new int[length];
 	for (int i = 0; i < length; i++) 
 		temp[i] = (i < _length) ? _data[i] : 0;
@@ -49,7 +50,7 @@ void IntArray::remove(int index){
 	resize(_length - 1);
 }
 
-void IntArray::puch(int elem){
+void IntArray::push(int elem){
 	insert(elem, 0);
 }
 
@@ -71,7 +72,7 @@ bool IntArray::findAll(int elem){
 			contains++;
 		}
 	}
-	cout << "Total occurrences: " << contains << endl;
+	cout << "Total occurrences of element " << elem << ": " << contains << endl;
 	return (contains > 0) ? true : false ;
 }
 

@@ -9,29 +9,29 @@ class IntArray{
 	int* _data;
 public:
 	int getLength();
-	//ёючфрЄ№ ъюэЄхщэхЁ;
+	//создать контейнер;
 	IntArray(int length);
 	IntArray();
 	~IntArray();
-	//ёъюяшЁютрЄ№ ъюэЄхщэхЁ;
+	//скопировать контейнер;
 	IntArray(const IntArray& aFrom);
-	//яюыєўшЄ№ фюёЄєя ъ ы■сюьє ¤ыхьхэЄє ъюэЄхщэхЁр яю шэфхъёє;
+	//получить доступ к любому элементу контейнера по индексу;
 	int& operator[](int index);
-	//шчьхэшЄ№ ЁрчьхЁ ъюэЄхщэхЁр;
+	//изменить размер контейнера;
 	void resize(int length);
-	//тёЄртшЄ№ ¤ыхьхэЄ т ъюэЄхщэхЁ;
+	//вставить элемент в контейнер;
 	void insert(int elem, int index);
-	//єфрышЄ№ ¤ыхьхэЄ шч ъюэЄхщэхЁр;
+	//удалить элемент из контейнера;
 	void remove(int index);
-	//тёЄртър т эрўрыю ш ъюэхЎ;
-	void puch(int elem);
+	//вставка в начало и конец;
+	void push(int elem);
 	void add(int elem);
-	//яюшёъ т ъюэЄхщэхЁх ¤ыхьхэЄр яю чэрўхэш■.
+	//поиск в контейнере элемента по значению.
 	int find(int elem);
 	bool findAll(int elem);
 };
 
-//exception Ч фы  т√їюфр чр яЁхфхы√ ьрёёштр Ч bad_range, яЁхфюёЄртыхэшх эхяЁртшы№эющ фышэ√ ьрёёштє bad_length.
+//exception ? для выхода за пределы массива ? bad_range, предоставление неправильной длины массиву bad_length.
 
 class bad_range : public exception {
 public:
@@ -43,5 +43,8 @@ public:
 	const char* what() const noexcept override { return "Wrong length.\n"; }
 };
 
-class bad_range{};
+//class bad_range{
+//public:
+//	const char* what();
+//};
 //class bad_length;
