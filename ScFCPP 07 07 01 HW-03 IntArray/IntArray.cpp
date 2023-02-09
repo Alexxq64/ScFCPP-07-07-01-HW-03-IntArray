@@ -6,9 +6,11 @@ int IntArray::getLength(){
 
 IntArray::IntArray(int length) : _length(length) {
 	if (length < 0) throw bad_length();
-	_data = new int[length];
+	_data = new int[length]{0};
 }
+
 IntArray::IntArray() : IntArray::IntArray(10) {};
+
 IntArray::~IntArray() {
 	delete[] _data;
 }
@@ -16,9 +18,17 @@ IntArray::~IntArray() {
 IntArray::IntArray(const IntArray& aFrom){
 	_length = aFrom._length;
 	_data = new int[_length];
-	for (int i = 0; i < _length;i++) {
+	for (int i = 0; i < _length;i++) 
 		_data[i] = aFrom._data[i];
-	}
+}
+
+IntArray& IntArray::operator=(const IntArray& aFrom){
+	if (&aFrom == this) return *this;
+	_length = aFrom._length;
+	_data = new int[_length];
+	for (int i = 0; i < _length; i++)
+		_data[i] = aFrom._data[i];
+	return *this;
 }
 
 int& IntArray::operator[](int index){
@@ -44,18 +54,29 @@ void IntArray::insert(int elem, int index){
 	_data[index] = elem;
 }
 
-void IntArray::remove(int index){
+int IntArray::remove(int index){
+	if (index < 0 || index > _length - 1) throw bad_range();
+	int temp = _data[index];
 	for (int i = index; i < _length - 1; i++)
 		_data[i] = _data[i + 1];
 	resize(_length - 1);
+	return temp;
 }
 
-void IntArray::push(int elem){
+void IntArray::pushFirst(int elem){
 	insert(elem, 0);
 }
 
-void IntArray::add(int elem){
+void IntArray::pushLast(int elem){
 	insert(elem, _length);
+}
+
+int IntArray::pullFirst(){
+	return remove(0);
+}
+
+int IntArray::pullLast(){
+	return remove(_length - 1);
 }
 
 int IntArray::find(int elem){
@@ -68,12 +89,19 @@ bool IntArray::findAll(int elem){
 	int contains = 0;
 	for (int i = 0; i < _length; i++) {
 		if (_data[i] == elem) {
-			cout << "There is element " << elem << " at the position " << i << endl;
+			cout << "There is element " << elem << " at the position " << i << "\n";
 			contains++;
 		}
 	}
-	cout << "Total occurrences of element " << elem << ": " << contains << endl;
+	cout << "Total occurrences of element " << elem << ": " << contains << "\n\n";
 	return (contains > 0) ? true : false ;
+}
+
+void IntArray::printIntArray(string name){
+	cout << "IntArray " <<  name << ": ";
+	for (int i = 0; i < _length; ++i)
+		cout << setw(4) << _data[i] << ' ';
+	cout << "\n\n";
 }
 
 //class bad_range : public exception {

@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -9,29 +10,35 @@ class IntArray{
 	int* _data;
 public:
 	int getLength();
-	//создать контейнер;
+	//create a container;
 	IntArray(int length);
 	IntArray();
 	~IntArray();
-	//скопировать контейнер;
+	//copy the container;
 	IntArray(const IntArray& aFrom);
-	//получить доступ к любому элементу контейнера по индексу;
+	//override tne assignment operator
+	IntArray& operator=(const IntArray& a);
+	//get any element by index;
 	int& operator[](int index);
-	//изменить размер контейнера;
+	//change the container length;
 	void resize(int length);
-	//вставить элемент в контейнер;
+	//insert an element to the container;
 	void insert(int elem, int index);
-	//удалить элемент из контейнера;
-	void remove(int index);
-	//вставка в начало и конец;
-	void push(int elem);
-	void add(int elem);
-	//поиск в контейнере элемента по значению.
+	//remove and return an element from the container;
+	int remove(int index);
+	//insert to the begining and to the end;
+	void pushFirst(int elem);
+	void pushLast(int elem);
+	//remove and return first and last element;
+	int pullFirst();
+	int pullLast();
+	//look for an element by the value
 	int find(int elem);
 	bool findAll(int elem);
+	void printIntArray(string name);
 };
 
-//exception — для выхода за пределы массива — bad_range, предоставление неправильной длины массиву bad_length.
+//exception: for out of the array bounds — bad_range; for the wrong array length - bad_length.
 
 class bad_range : public exception {
 public:
