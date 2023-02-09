@@ -42,16 +42,10 @@ public:
 
 class bad_range : public exception {
 public:
-	const char* what() const noexcept override { return "Out of range.\n"; }
+	const char* what() const noexcept override;
 };
 
 class bad_length : public exception {
 public:
-	const char* what() const noexcept override { return "Wrong length.\n"; }
+	const char* what() const noexcept override;
 };
-
-//class bad_range{
-//public:
-//	const char* what();
-//};
-//class bad_length;

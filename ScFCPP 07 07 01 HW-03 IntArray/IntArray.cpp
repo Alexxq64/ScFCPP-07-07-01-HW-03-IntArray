@@ -39,6 +39,8 @@ int& IntArray::operator[](int index){
 void IntArray::resize(int length){
 	if (length < 0) throw bad_length();
 	int* temp = new int[length];
+	// if the array is shortened, the remainder is lost
+	// if it is extended, extra elements are filled with 0
 	for (int i = 0; i < length; i++) 
 		temp[i] = (i < _length) ? _data[i] : 0;
 	delete[] _data;
@@ -104,12 +106,5 @@ void IntArray::printIntArray(string name){
 	cout << "\n\n";
 }
 
-//class bad_range : public exception {
-//public:
-//	const char* what() const noexcept override { return "Out of range.\n"; }
-//};
-
-//class bad_length : public exception {
-//public:
-//	const char* what() const noexcept override { return "Wrong length.\n"; }
-//};
+const char* bad_range::what() const noexcept { return "Out of range.\n"; }
+const char* bad_length::what() const noexcept { return "Wrong length.\n"; }
